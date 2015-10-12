@@ -1,17 +1,14 @@
 import android.app.Activity;
 import android.os.Bundle;
+import android.test.InstrumentationTestCase;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 /**
  * Created by prakashg on 9/10/15.
  */
-public class UiAutomator extends Activity {
+public class UiAutomator extends InstrumentationTestCase {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        System.out.println("Activity created===========================Prakash");
-    }
+    
 
 }

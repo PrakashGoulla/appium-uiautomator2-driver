@@ -105,6 +105,8 @@ public class ServerInstrumentation extends Instrumentation implements ServerDeta
     this.args = new InstrumentationArguments(arguments);
 
     mainActivityName = arguments.getString("main_activity");
+    //Pass this automationName to AndroidServer.java
+    String automationName = arguments.getString("automationName");
 
     int parsedServerPort = 0;
 

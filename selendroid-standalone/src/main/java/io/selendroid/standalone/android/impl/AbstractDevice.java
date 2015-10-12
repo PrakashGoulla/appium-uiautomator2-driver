@@ -237,17 +237,21 @@ public abstract class AbstractDevice implements AndroidDevice {
       if (capabilities.getBootstrapClassNames() != null) {
         argList.addAll(Lists.newArrayList("-e", "bootstrap", capabilities.getBootstrapClassNames()));
       }
-      if(capabilities.getAutomationName() != null){
-        argList.addAll(Lists.newArrayList("-e", "automationName", capabilities.getAutomationName()));
-      }
+    }
+    if(capabilities.getAutomationName() != null){
+      argList.addAll(Lists.newArrayList("-e", "automationName", capabilities.getAutomationName()));
     }
 
+    argList.add("io.selendroid." + aut.getBasePackage() + "/io.selendroid.server.ServerInstrumentation");
+
+    /** Approach 2: By instantiation the Android Server through some other class
+     *
     if(automationName.equals("UiAutomator")){
-      System.out.println("Prakash======================add UiAutomator");
       argList.add("io.selendroid." + aut.getBasePackage() + "/io.selendroid.server.UiAutomator");
     }else{
       argList.add("io.selendroid." + aut.getBasePackage() + "/io.selendroid.server.ServerInstrumentation");
     }
+     */
 
     String[] args = argList.toArray(new String[argList.size()]);
     CommandLine command
