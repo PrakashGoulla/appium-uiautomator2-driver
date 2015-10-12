@@ -227,6 +227,8 @@ public abstract class AbstractDevice implements AndroidDevice {
   public void startSelendroid(AndroidApp aut, int port, SelendroidCapabilities capabilities) throws AndroidSdkException {
     this.port = port;
 
+    String automationName = capabilities.getAutomationName();
+
     List<String> argList = Lists.newArrayList(
         "-e", "main_activity", aut.getMainActivity(),
         "-e", "server_port", Integer.toString(port));
@@ -235,12 +237,21 @@ public abstract class AbstractDevice implements AndroidDevice {
       if (capabilities.getBootstrapClassNames() != null) {
         argList.addAll(Lists.newArrayList("-e", "bootstrap", capabilities.getBootstrapClassNames()));
       }
+      if(capabilities.getAutomationName() != null){
+        argList.addAll(Lists.newArrayList("-e", "automationName", capabilities.getAutomationName()));
+      }
     }
-    argList.add("io.selendroid." + aut.getBasePackage() + "/io.selendroid.server.ServerInstrumentation");
+
+    if(automationName.equals("UiAutomator")){
+      System.out.println("Prakash======================add UiAutomator");
+      argList.add("io.selendroid." + aut.getBasePackage() + "/io.selendroid.server.UiAutomator");
+    }else{
+      argList.add("io.selendroid." + aut.getBasePackage() + "/io.selendroid.server.ServerInstrumentation");
+    }
 
     String[] args = argList.toArray(new String[argList.size()]);
     CommandLine command
-        = adbCommand(ObjectArrays.concat(new String[]{"shell", "am", "instrument"}, args, String.class));
+            = adbCommand(ObjectArrays.concat(new String[]{"shell", "am", "instrument"}, args, String.class));
 
     String result = executeCommandQuietly(command);
     if (result.contains("FAILED")) {

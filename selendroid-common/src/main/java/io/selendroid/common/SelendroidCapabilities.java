@@ -194,6 +194,14 @@ public class SelendroidCapabilities extends DesiredCapabilities {
   }
 
   /**
+   * an option to add the automationName from selendroid scripts, default will be selendroid
+   * @param automationName
+   */
+  public void setAutomationName(String automationName) {
+    setCapability(AUTOMATION_NAME, automationName);
+  }
+
+  /**
    * Adds a class to run on app startup. Class names are stored as a string separated by commas.
    */
   public SelendroidCapabilities addBootstrapClass(String className) {
